@@ -90,7 +90,6 @@ let TStop = () => {
 
 let TStart = () => {
   document.getElementById('answer').select();
-  //Math.floor(Math.random()*(MAX_NUMBER-MIN_NUMBER+1))+MIN_NUMBER
   MaxNum = Number(document.getElementById('MaxNum').value);
 
   if(MSes === 0){
