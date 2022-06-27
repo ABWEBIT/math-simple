@@ -1,8 +1,8 @@
 /* remove webkit object highlight */
 *{
-	outline:none;
-	-webkit-tap-highlight-color:rgba(0,0,0,0);
-	-webkit-tap-highlight-color:transparent;}
+  outline:none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-tap-highlight-color:transparent;}
 
 /* remove arrows from input */
 input::-webkit-outer-spin-button,
@@ -20,9 +20,9 @@ input[type=number]{
 ::-webkit-scrollbar-thumb{border-radius:6px;}
 
 .noSelect{
-	-webkit-touch-callout:none;
-	-webkit-user-select:none;
-	user-select:none;}
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  user-select:none;}
 
 html,body{
   position:relative;
@@ -45,9 +45,9 @@ input{
   box-sizing:border-box;}
 
 input.off{
-	cursor:default;
-	-webkit-user-select:none;
-	user-select:none;}
+  cursor:default;
+  -webkit-user-select:none;
+  user-select:none;}
 
 /* app */
 .block{
@@ -131,13 +131,12 @@ input.off{
   margin-top:10px;
   border-radius:5px;
   background-color:#222222;
-	width:100%;
-	box-sizing:border-box;
-	padding:10px 0;
+  width:100%;
+  box-sizing:border-box;
+  padding:10px 0;
   height:50px;
   font-size:180%;
-	text-align:center;}
-
+  text-align:center;}
 
 /* math */
 #math{
@@ -163,13 +162,13 @@ input.off{
   flex-basis:8%;}
 
 #math .item input{
-	background-color:transparent;
-	box-sizing:border-box;
-	border:0;
+  background-color:transparent;
+  box-sizing:border-box;
+  border:0;
   padding-top:10px;
   padding-bottom:10px;
-	text-align:center;
-	width:100%;}
+  text-align:center;
+  width:100%;}
 
 
 /* controls */
@@ -177,7 +176,7 @@ input.off{
   margin-top:10px;
   display:flex;
   gap:5px;
-	width:100%;}
+  width:100%;}
 
 #controls .item{
   border-radius:5px;
@@ -203,7 +202,7 @@ input.off{
   border-radius:5px;
   margin-top:10px;
   display:flex;
-	background-color:#222222;}
+  background-color:#222222;}
 	
 #results .item{
   text-align:center;
@@ -232,8 +231,6 @@ input.off{
   padding-top:10px;
   width:100%;
   display:block;}
-
-
 
 #menu{
   background-color:#222222;
