@@ -8,15 +8,57 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<section id="app" class="noSelect">
+<section id="app">
   <div class="wrap">
 
-    <section id="generator" class="block on">
+    <section id="generator">
+
+      <section id="timer">
+        <div id="time">00:00:00</div>
+      </section>
+
+      <section id="math">
+        <div class="item num">
+          <input type="number" class="off" id="Anum" value="" placeholder="A" readonly>
+        </div>
+        <div class="item spc">
+          <input type="text" class="off" id="Oper" value="" placeholder="?" readonly>
+        </div>
+        <div class="item num">
+          <input type="number" class="off" id="Bnum" value="" placeholder="B" readonly>
+        </div>
+        <div class="item spc">
+          <input type="text" class="off" id="equal Equa" value="=" placeholder="=" readonly>
+        </div>
+        <div class="item num">
+          <input type="number" id="Answ" value="" placeholder="C">
+        </div>
+      </section>
+
+      <section id="controls">
+        <div class="item off" id="BStop">Стоп</div>
+        <div class="item off" id="BStart">Старт</div>
+        <div class="item off" id="BCheck">Проверка</div>
+      </section>
+
+      <section id="results">
+        <div class="item">
+          <div class="title">Решено</div>
+          <div class="rTxt" id="rTot">0</div>
+        </div>
+        <div class="item">
+          <div class="title">Правильно</div>
+          <div class="rTxt" id="rCor">0</div>
+        </div>
+        <div class="item">
+          <div class="title">Неправильно</div>
+          <div class="rTxt" id="rInc">0</div>
+        </div>
+      </section>
 
       <section id="condition">
         <div class="item">
-          <input type="number" id="MaxNum" value="" placeholder="D (10-9999)">
+          <input type="number" id="MaxNum" value="" placeholder="10-9999">
         </div>
       </section>
 
@@ -54,69 +96,8 @@
         </div>
       </section>
 
-      <section id="timer">
-        <div id="time">00:00:00</div>
-      </section>
-
-      <section id="math">
-        <div class="item num">
-          <input type="number" class="off" id="operandA" value="" placeholder="A" readonly>
-        </div>
-        <div class="item spc">
-          <input type="text" class="off" id="operator" value="" placeholder="?" readonly>
-        </div>
-        <div class="item num">
-          <input type="number" class="off" id="operandB" value="" placeholder="B" readonly>
-        </div>
-        <div class="item spc">
-          <input type="text" class="off" id="equal" value="=" readonly>
-        </div>
-        <div class="item num">
-          <input type="number" id="answer" value="" placeholder="C">
-        </div>
-      </section>
-
-      <section id="controls">
-        <div class="item off" id="BStop">Стоп</div>
-        <div class="item off" id="BStart">Старт</div>
-        <div class="item off" id="BCheck">Проверка</div>
-      </section>
-
-      <section id="results">
-        <div class="item">
-          <div class="title">Решено</div>
-          <div class="text" id="RETot">0</div>
-        </div>
-        <div class="item">
-          <div class="title">Правильно</div>
-          <div class="text" id="RECor">0</div>
-        </div>
-        <div class="item">
-          <div class="title">Неправильно</div>
-          <div class="text" id="REInc">0</div>
-        </div>
-      </section>
-
     </section>
 
-    <section id="description" class="block">
-      <span class="title">Настройка и использование:</span>
-      <span class="text">1) В верхнем поле с буквой 'D' введите целое положительное число от 10 до 9999. Это число - максимальный результат при ответе. Если, ввести число меньше 10 или больше 9999, то оно будет автоматически скорректировано при любом действии вне этого поля. После старта ввод будет заблокирован.</span>
-      <span class="text">2) Во втором поле находятся математические символы, выберите необходимые. Выбрать можно хоть все сразу. После старта выбор будет заблокирован.</span>
-      <span class="text">3) После настройки активируется кнопка Старт. При нажатии она запустит таймер и сгенерирует пример, заполнив поля A ? B числами и случайным знаком.</span>
-      <span class="text">4) После ввода ответа, подтвердите своё решение нажатием на кнопку Проверка, данные о решении будут внесены в результаты и сгенерируется новый пример.</span>
-      <span class="text">5) Кнопка Стоп остановит процесс, заблокирует таймер и результаты. Сбросить таймер и результаты можно начав процесс генерации примера по новой.</span>
-    </section>
-
-  </div>
-</section>
-
-<section class="noSelect" id="menu">
-  <div class="wrap">
-    <div id="buttons">
-      <div class="item on" data-block="generator"><span>Генератор</span></div>
-      <div class="item"  data-block="description"><span>Информация</span></div>
-    </div>
   </div>
 </section>
 
