@@ -7,7 +7,7 @@
 /* remove arrows from input */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button{
-  -webkit-appearance:none;
+  appearance:none;
   margin:0;}
 
 input[type=number]{
@@ -19,24 +19,20 @@ input[type=number]{
 ::-webkit-scrollbar-track{background-color:transparent;}
 ::-webkit-scrollbar-thumb{border-radius:6px;}
 
-.noSelect{
-  -webkit-touch-callout:none;
-  -webkit-user-select:none;
-  user-select:none;}
-
-html,body{
+html,
+body{
+  overflow:hidden;
   position:relative;
   margin:0;
   padding:0;
   width:100%;
-  height:100%;
-  overflow:hidden;}
+  height:100%;}
 
 body{
   font-family:Arial,sans-serif;
   font-size:16px;
-  color:#eaeaea;
-  background-color:#303030;}
+  color:rgb(235,235,235);
+  background-color:rgb(50,50,50);}
 
 input{
   font-size:180%;
@@ -50,18 +46,13 @@ input.off{
   user-select:none;}
 
 /* app */
-.block{
-  padding-top:20px;
-  padding-bottom:20px;
-  display:none;}
-
-.block.on{display:block;}
-
 #app{
+  -webkit-user-select:none;
+  user-select:none;
   overflow-x:hidden;
   overflow-y:scroll;
   scrollbar-gutter:stable both-edges;
-  height:calc(100% - 50px);}
+  height:100%;}
 
 #app::-webkit-scrollbar-thumb{
   background-color:rgb(144,147,153);}
@@ -71,8 +62,13 @@ input.off{
   max-width:500px;
   margin:auto;}
 
+#generator{
+  padding-top:20px;
+  padding-bottom:20px;}
+
 /* condition */
 #condition{
+  margin-top:20px;
   display:block;
   position:relative;
   width:100%;}
@@ -124,11 +120,10 @@ input.off{
   box-sizing:border-box;
   display:block;
   stroke-width:4px;
-  stroke:#eaeaea;}
+  stroke:rgb(235,235,235);}
 
 /* timer */
 #timer{
-  margin-top:10px;
   border-radius:5px;
   background-color:#222222;
   width:100%;
@@ -169,7 +164,6 @@ input.off{
   padding-bottom:10px;
   text-align:center;
   width:100%;}
-
 
 /* controls */
 #controls{
@@ -213,62 +207,6 @@ input.off{
 #results .title{
   font-size:90%;}
 
-#results .text{
+#results .rTxt{
   padding-top:10px;
   font-size:110%;}
-
-#description{
-  line-height:150%;}
-
-#description .title{
-  padding-bottom:10px;
-  display:block;
-  width:100%;
-  font-weight:bold;
-  font-size:130%;}
-
-#description .text{
-  padding-top:10px;
-  width:100%;
-  display:block;}
-
-#menu{
-  background-color:#222222;
-  position:fixed;
-  bottom:0;
-  width:100%;
-  height:50px;}
-
-#menu .wrap{
-  box-sizing:border-box;
-  width:calc(100% - 32px);
-  height:100%;
-  max-width:500px;
-  margin:auto;}
-
-#menu #buttons{
-  margin-top:5px;
-  margin-bottom:5px;
-  gap:5px;
-  height:calc(100% - 10px);
-  display:flex;}
-
-#menu #buttons .item{
-  position:relative;
-  border-radius:5px;
-  cursor:pointer;
-  opacity:.2;
-  box-sizing:border-box;
-  background-color:#575757;
-  height:100%;
-  flex:1 1 50%;}
-
-#menu #buttons .item.on,
-#menu #buttons .item:hover{
-  opacity:1;}
-
-#menu #buttons .item span{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);}
