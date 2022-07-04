@@ -65,15 +65,9 @@ let Timer = () => {
     min = Math.floor((TDif % (1000 * 60 * 60)) / (1000 * 60));
     sec = Math.floor((TDif % (1000 * 60)) / 1000);
 
-    if(hrs.toString().length === 1){
-      hrs = '0'+hrs;
-    };
-    if(min.toString().length === 1){
-      min = '0'+min;
-    };
-    if(sec.toString().length === 1){
-      sec = '0'+sec;
-    };
+    if(hrs.toString().length === 1){hrs = '0'+hrs;};
+    if(min.toString().length === 1){min = '0'+min;};
+    if(sec.toString().length === 1){sec = '0'+sec;};
     TNew = hrs+':'+min+':'+sec;
     Time.innerHTML = TNew;
   },1000);
