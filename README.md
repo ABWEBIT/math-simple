@@ -1,2 +1,2 @@
 # simple-math
-https://abwebit.github.io/simple-math/
+https://abwebit.github.io/math-simple/
