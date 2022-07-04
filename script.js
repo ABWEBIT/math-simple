@@ -1,66 +1,69 @@
-var MSes = 0;
-var TCalc;
-var MaxNum;
-var MOArr = [];
-var operators = document.getElementsByClassName('operators');
+'use strict';
+let ses = 0, arr = [];
 
-document.getElementById('BStop').classList.add('off');
-document.getElementById('BCheck').classList.add('off');
+let rTxt,rTot,rCor,rInc;
+rTxt = document.getElementsByClassName('rTxt');
+rTot = document.getElementById('rTot');
+rCor = document.getElementById('rCor');
+rInc = document.getElementById('rInc');
 
-let BStartActivation = () => {
-  MaxNum = document.getElementById('MaxNum').value;
-  if(MOArr.length && MaxNum > 9 && MSes === 0){
-    document.getElementById('BStart').classList.remove('off');
+let max,Anum,Oper,Bnum,Answ;
+max = document.getElementById('MaxNum');
+Anum = document.getElementById('Anum');
+Oper = document.getElementById('Oper');
+Bnum = document.getElementById('Bnum');
+Answ = document.getElementById('Answ');
+
+let BStop,BStart,BCheck;
+BStop = document.getElementById('BStop');
+BStart = document.getElementById('BStart');
+BCheck = document.getElementById('BCheck');
+
+let TActivate = () => {
+  if(arr.length && max.value > 9 && max.value < 10000 && ses === 0){
+    BStart.classList.remove('off');
   }
-  else if(!MOArr.length || MaxNum < 10){
-    document.getElementById('BStart').classList.add('off');
+  else if(!arr.length || max.value < 10 || max.value > 9999){
+    BStart.classList.add('off');
   }
 };
-BStartActivation();
 
-
-var MaxNumChange = document.getElementById('MaxNum');
-MaxNumChange.addEventListener('keyup',() =>{
-  BStartActivation();
-});
-MaxNumChange.addEventListener('blur',() =>{
-  if(MaxNum < 10){
-    MaxNum = 10;
-    document.getElementById('MaxNum').value = MaxNum;
-  }
-  else if(MaxNum > 9999){
-    MaxNum = 9999;
-    document.getElementById('MaxNum').value = MaxNum;    
-  };
-  BStartActivation();
+max.addEventListener('input',() =>{
+  TActivate();
 });
 
-
+/* operators */
+let operators = document.getElementsByClassName('operators');
 for(let operator of operators){
   operator.addEventListener('click',() =>{
-    if(!MOArr.includes(operator.dataset.value) && MSes !== 1){
-      MOArr.push(operator.dataset.value);
+    if(!arr.includes(operator.dataset.value) && ses !== 1){
+      arr.push(operator.dataset.value);
       operator.classList.add('on');
     }
-    else if(MOArr.includes(operator.dataset.value) && MSes !== 1){
-      MOArr = MOArr.filter(function(e) {
+    else if(arr.includes(operator.dataset.value) && ses !== 1){
+      arr = arr.filter(function(e) {
         return e !== operator.dataset.value;
       });
       operator.classList.remove('on');
     };
-    BStartActivation();
+    TActivate();
   });
 };
 
-let Timer = () => {
-  let TNow = new Date().getTime();
-  TCalc = setInterval(function(){
-    let TUpd = new Date().getTime();
-    let TDif = TUpd - TNow;
+/* timer */
+let Tint,Time;
+Time = document.getElementById('time');
 
-    let hrs = Math.floor((TDif % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let min = Math.floor((TDif % (1000 * 60 * 60)) / (1000 * 60));
-    let sec = Math.floor((TDif % (1000 * 60)) / 1000);
+let Timer = () => {
+  let TNow,TUpd,TDif,TNew,hrs,min,sec;
+  TNow = new Date().getTime();
+  Tint = setInterval(function(){
+    TUpd = new Date().getTime();
+    TDif = TUpd - TNow;
+
+    hrs = Math.floor((TDif % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    min = Math.floor((TDif % (1000 * 60 * 60)) / (1000 * 60));
+    sec = Math.floor((TDif % (1000 * 60)) / 1000);
 
     if(hrs.toString().length === 1){
       hrs = '0'+hrs;
@@ -71,159 +74,127 @@ let Timer = () => {
     if(sec.toString().length === 1){
       sec = '0'+sec;
     };
-    var TNew = hrs+':'+min+':'+sec;
-    document.getElementById('time').innerHTML = TNew;
+    TNew = hrs+':'+min+':'+sec;
+    Time.innerHTML = TNew;
   },1000);
 };
 
+/* task: stop */
 let TStop = () => {
-  clearInterval(TCalc);
-  MSes = 0;
-  document.getElementById('BStart').classList.remove('off');
-  document.getElementById('BStop').classList.add('off');
-  document.getElementById('BCheck').classList.add('off');
-  document.getElementById('operandA').value = '';
-  document.getElementById('operandB').value = '';
-  document.getElementById('operator').value = '';
-  document.getElementById('MaxNum').readOnly = false;
+  clearInterval(Tint);
+  ses = 0;
+  BStart.classList.remove('off');
+  BStop.classList.add('off');
+  BCheck.classList.add('off');
+
+  Anum.value = '';
+  Bnum.value = '';
+  Oper.value = '';
+  max.readOnly = false;
 };
 
+/* task: start */
 let TStart = () => {
-  document.getElementById('answer').select();
-  MaxNum = Number(document.getElementById('MaxNum').value);
+  Answ.select();
 
-  if(MSes === 0){
-    document.getElementById('time').innerHTML = '00:00:00';
-    document.getElementById('RETot').innerHTML = '0';
-    document.getElementById('RECor').innerHTML = '0';
-    document.getElementById('REInc').innerHTML = '0';
-    document.getElementById('answer').value = '';
+  if(ses === 0){
+    Time.innerHTML = '00:00:00';
+    Answ.value = '';
+
+    for(let el of rTxt){ 
+      el.innerHTML = '0';
+    }; 
   };
 
-  if(MOArr.length && MaxNum > 9){
-    document.getElementById('MaxNum').readOnly = true;
-    let MOperator = MOArr[Math.floor(Math.random()*MOArr.length)];
+  if(arr.length && max.value > 9 && max.value < 10000){
+    max.readOnly = true;
+    let MOperator = arr[Math.floor(Math.random()*arr.length)];
 
-    document.getElementById('BStart').classList.add('off');
-    document.getElementById('BStop').classList.remove('off');
-    document.getElementById('BCheck').classList.remove('off');
+    BStart.classList.add('off');
+    BStop.classList.remove('off');
+    BCheck.classList.remove('off');
 
-    let MOperandA;
-    let MOperandB;
-
-    MOpA = () => {
-      do{
-        MOperandA = Math.floor(Math.random()*(MaxNum + 1));
-      }
-      while (MOperandA === 0);
-    };
-
-    MOpB = () => {
-      do{
-        MOperandB = Math.floor(Math.random()*(MaxNum + 1));
-      }
-      while (MOperandB === 0);
-    };
+    let MOperandA,MOperandB,Madd,Msub,Mmul,Mdiv;
 
     Madd = () => {
-			do{
-        MOpA();
-  		  MOperandB = Math.floor(Math.random()*((MaxNum + 1) - MOperandA));
+      do{
+        MOperandA = Math.floor(Math.random()*(Number(max.value) + 1));
+  	MOperandB = Math.floor(Math.random()*((Number(max.value) + 1) - MOperandA));
       }
-      while (MOperandB == 0);
+      while (MOperandA === 0 || MOperandB === 0);
     };
 
     Msub = () => {
       do{
-        MOpA();
+        MOperandA = Math.floor(Math.random()*(Number(max.value) + 1));
         MOperandB = Math.floor(Math.random()*(MOperandA + 1));
       }
-      while (MOperandB == 0 || MOperandA == MOperandB) 
+      while (MOperandA === 0 || MOperandB === 0 || MOperandA === MOperandB) 
     };
 
     Mmul = () => {
       do{
-        MOpA();
-        MOpB();
+        MOperandA = Math.floor(Math.random()*(Number(max.value) + 1));
+        MOperandB = Math.floor(Math.random()*(Number(max.value) + 1));
       }
-      while (MOperandA * MOperandB >= MaxNum + 1 || MOperandA == 1 || MOperandB == 1);
+      while (MOperandA * MOperandB >= Number(max.value) + 1 || MOperandA === 1 || MOperandB === 1 || MOperandA === 0 || MOperandB === 0);
     };
 
     Mdiv = () => {
       do{
-        MOpA();
-        MOpB();
+        MOperandA = Math.floor(Math.random()*(Number(max.value) + 1));
+        MOperandB = Math.floor(Math.random()*(Number(max.value) + 1));
       }
-      while (MOperandA % MOperandB != 0 || MOperandA == MOperandB || MOperandA == 1 || MOperandB == 1);
+      while (MOperandA % MOperandB !== 0 || MOperandA === MOperandB || MOperandA === 1 || MOperandB === 1 || MOperandA === 0 || MOperandB === 0);
+    };
+    
+    switch (MOperator){
+      case '+': Madd();break;
+      case '-': Msub();break;
+      case '*': Mmul();break;
+      case '/': Mdiv();break;
     };
 
-    if     (MOperator === '+') {Madd()}
-    else if(MOperator === '-') {Msub()}
-    else if(MOperator === '*') {Mmul()}
-    else if(MOperator === '/') {Mdiv()};
+    Anum.value = MOperandA;
+    Oper.value = MOperator;
+    Bnum.value = MOperandB;
+    Answ.value = '';
 
-    document.getElementById('operandA').value = MOperandA;
-    document.getElementById('operator').value = MOperator;
-    document.getElementById('operandB').value = MOperandB;
-    document.getElementById('answer').value = '';
-
-    if(MSes !== 1){
+    if(ses !== 1){
       Timer();
-      MSes = 1;
+      ses = 1;
     };
   };
 };
 
 /* task: check */
 let TCheck = () => {
-  if(MOArr.length && MSes === 1){
-    let MOperandA = document.getElementById('operandA').value;
-    let MOperator = document.getElementById('operator').value;
-    let MOperandB = document.getElementById('operandB').value;
-    let MAnswer   = document.getElementById('answer').value;
-    let tmpMAnswer;
-
-    Madd = () => {
-      tmpMAnswer = Number(MOperandA) + Number(MOperandB);
+  if(arr.length && ses === 1){
+    let Check;
+    function Calc(o,a,b){
+      switch (o){
+        case '+': return a + b
+        case '-': return a - b
+        case '*': return a * b
+        case '/': return a / b
+      }
     };
-    Msub = () => {
-      tmpMAnswer = Number(MOperandA) - Number(MOperandB);
-    };
-    Mmul = () => {
-      tmpMAnswer = Number(MOperandA) * Number(MOperandB);
-    };
-    Mdiv = () => {
-      tmpMAnswer = Number(MOperandA) / Number(MOperandB);
-    };
+    Check = Calc(Oper.value,Number(Anum.value),Number(Bnum.value));
+ 
+    if(Answ.value == Check){
+      rCor.textContent++}
+    else{
+      rInc.textContent++};
+    rTot.textContent++;
 
-    if     (MOperator === '+') {Madd()}
-    else if(MOperator === '-') {Msub()}
-    else if(MOperator === '*') {Mmul()}
-    else if(MOperator === '/') {Mdiv()};
-
-    let RETot = document.getElementById('RETot').textContent;
-    let RECor = document.getElementById('RECor').textContent;
-    let REInc = document.getElementById('REInc').textContent;
-  
-    if(tmpMAnswer == MAnswer){
-		  RECor++;
-	  }else{
-      REInc++;
-	  };
-    RETot++;
-
-    document.getElementById('RETot').innerHTML = RETot;
-    document.getElementById('RECor').innerHTML = RECor;
-    document.getElementById('REInc').innerHTML = REInc;
+    rTot.innerHTML = rTot.textContent;
+    rCor.innerHTML = rCor.textContent;
+    rInc.innerHTML = rInc.textContent;
   };
 };
 
 /* controls */
-var BStop = document.getElementById('BStop');
-var BStart = document.getElementById('BStart');
-var BCheck = document.getElementById('BCheck');
-
-var controls = document.getElementById('controls').getElementsByClassName('item');
+let controls = document.getElementById('controls').getElementsByClassName('item');
 
 for(let control of controls){
   control.addEventListener('touchstart', () =>{
@@ -236,25 +207,25 @@ for(let control of controls){
 };
 
 BStop.addEventListener('click',() =>{
-  if(MSes === 1){
+  if(ses === 1){
     TStop();
   };
 });
 
 BStart.addEventListener('click',() =>{
-  if(MSes === 0 && MOArr.length){
+  if(ses === 0 && arr.length){
     TStart();
   };
 });
 
 BCheck.addEventListener('click',() =>{
-  if(MSes === 1){
+  if(ses === 1){
     TCheck();
     TStart();
   };
 });
 
-document.getElementById('answer').addEventListener('keyup', function(e) {
+Answ.addEventListener('keyup', function(e) {
   let KeyCode = e.code.toLowerCase();
   if(KeyCode === 'enter'){
     TCheck();
@@ -262,21 +233,3 @@ document.getElementById('answer').addEventListener('keyup', function(e) {
     e.preventDefault();
   }
 });
-
-/* menu */
-var buttons = document.getElementById('buttons').getElementsByClassName('item');
-var blocks = document.getElementById('app').getElementsByClassName('block');
-
-for(let button of buttons){
-  button.addEventListener('click',() =>{
-
-    if(!button.classList.contains('on')){
-      Array.from(buttons).forEach((btn) => btn.classList.remove('on'));
-      button.classList.add('on');
-
-      Array.from(blocks).forEach((blk) => blk.classList.remove('on'));
-      document.getElementById(button.dataset.block).classList.add('on');
-    };
-
-  });
-};
