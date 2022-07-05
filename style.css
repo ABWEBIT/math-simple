@@ -55,7 +55,7 @@ input.off{
   height:100%;}
 
 #app::-webkit-scrollbar-thumb{
-  background-color:rgb(144,147,153);}
+  background-color:rgb(145,145,145);}
 
 #app .wrap{
   width:calc(100% - 20px);
